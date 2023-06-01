@@ -1,0 +1,44 @@
+import os
+import re
+from decouple import config  # we'll use config package in this decouple to read the secret key in the .env file
+from datetime import timedelta
+
+#   the path to our datatbase
+base_dir = os.path.dirname(os.path.realpath(__file__))
+
+class Config:
+    SECRET_KEY = config('SECRET_KEY', 'secret')
+    # JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=20)
+    # JWT_REFRESH_TOKEN_EXPIRES = timedelta(minutes=30)
+    # JWT_SECRET_KEY = config('JWT_SECRET_KEY')
+    
+
+    PROPAGATE_EXCEPTIONS = True
+    API_TITLE = "Url Shortener"
+    API_VERSION = "v1"
+    OPENAPI_VERSION = "3.0.3"
+    OPENAPI_URL_PREFIX = "/"
+    OPENAPI_SWAGGER_UI_PATH = "/swagger-ui"
+    OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+
+
+class DevConfig(Config):
+    DEBUG = config('DEBUG', True, cast=bool)
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(base_dir, 'db.sqlite3')
+
+
+class TestConfig(Config):
+    pass
+
+class ProdConfig(Config):
+    pass
+
+
+#this config_dict is created so dat we can easily read/hold these classes
+config_dict = {
+    'dev':DevConfig,
+    'test':TestConfig,
+    'prod':ProdConfig
+}
