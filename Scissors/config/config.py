@@ -20,6 +20,16 @@ class Config:
     OPENAPI_URL_PREFIX = "/"
     OPENAPI_SWAGGER_UI_PATH = "/swagger-ui"
     OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    API_SPEC_OPTIONS = {
+        'info': {
+            'title': 'Scissors',
+            'version': '1.0',
+            'description': 'Url Shortner API',
+        },
+        'servers': [
+            {'url': 'http://localhost:5000', 'description': 'Development server'},
+        ],
+    }
 
 
 class DevConfig(Config):
