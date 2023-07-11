@@ -103,10 +103,6 @@ class RedirectUrl(MethodView):
 @limiter.limit("10 per minute")  # Allow 10 requests per minute
 def qr_code(short_url):
     link = Url.query.filter_by(short_url=short_url).first_or_404()
-    # if not link.qr_code:
-    #     link.qr_code = link.org_url.generateqr()
-    #     db.session.commit()
-    #     redirect(link.org_url)
     response = make_response(link.qr_code)
     response.headers.set("Content-Type", "image/jpeg")
     return response

@@ -9,10 +9,10 @@ from resources.views import blp as UrlBlueprint
 from resources.user import blp as UserBlueprint
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-from redis import Redis
 from extension import BLOCKLIST
+
+
+
 def create_app(config=config_dict['dev']):
 
     app = Flask(__name__)
@@ -30,9 +30,6 @@ def create_app(config=config_dict['dev']):
     app.config['CACHE_TYPE'] = 'simple'  # Set the cache type to 'simple'
     cache.init_app(app)
 
-    # Configure the limiter
-    # redis_client = Redis(host='localhost', port=6379, db=0)
-    # limiter = Limiter(key_func=get_remote_address, storage_uri=redis_client)
     limiter.init_app(app)
 
     @jwt.token_in_blocklist_loader
