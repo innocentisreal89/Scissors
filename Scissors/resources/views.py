@@ -25,7 +25,6 @@ class ShortenUrl(MethodView):
     @blp.arguments(PlainUrlSchema)
     @blp.response(201,ScissorsSchema)
     def post(self,url_data):
-        # limiter = current_app.limiter
 
         current_user = get_jwt_identity()
 
@@ -62,7 +61,7 @@ class ShortenUrl(MethodView):
         }
         return response, 201
     
-    '''getting the urls of a specific user'''
+    '''getting the urls of a specific logged in user'''
     @jwt_required()
     @blp.response(200,ScissorsSchema(many=True))
     @cache.cached(timeout=3600)
@@ -85,9 +84,8 @@ class RedirectUrl(MethodView):
     @jwt_required()
     @blp.response(302)
     @cache.cached(timeout=3600)
-    @limiter.limit("10 per minute")  # Allow 10 requests per minute
+    @limiter.limit("10/minute")  # Allow 10 requests per minute
     def get(self, short_url):
-        limiter = current_app.limiter
         new_link = Url.query.filter_by(short_url=short_url).first()
         if new_link:
             new_link.clicks += 1
@@ -100,7 +98,7 @@ class RedirectUrl(MethodView):
 @blp.route("/<short_url>/qr_code")
 @jwt_required()
 @cache.cached(timeout=3600) # Cache for 1 hour (3600 seconds)
-@limiter.limit("10 per minute")  # Allow 10 requests per minute
+@limiter.limit("10/minute")  # Allow 10 requests per minute
 def qr_code(short_url):
     link = Url.query.filter_by(short_url=short_url).first_or_404()
     response = make_response(link.qr_code)

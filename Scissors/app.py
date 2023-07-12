@@ -4,12 +4,11 @@ from config.config import config_dict
 from model.url import Url
 from model.user import User
 from db import db
-from extension import cache, limiter
+from extension import cache, limiter, BLOCKLIST
 from resources.views import blp as UrlBlueprint
 from resources.user import blp as UserBlueprint
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from extension import BLOCKLIST
 
 
 
@@ -26,8 +25,7 @@ def create_app(config=config_dict['dev']):
 
     api = Api(app)
 
-    # Configure the cache
-    app.config['CACHE_TYPE'] = 'simple'  # Set the cache type to 'simple'
+    
     cache.init_app(app)
 
     limiter.init_app(app)

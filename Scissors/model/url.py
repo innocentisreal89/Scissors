@@ -52,8 +52,8 @@ class Url(db.Model):
             version=None,
             box_size=10,
             border=2)
-        qr.add_data(f'{request.host_url}{self.short_url}')
-        # qr.add_data(self.short_url) - uncomment this when running a test
+        qr.add_data(f'{request.host_url}{self.short_url}')  #- comment this when running a unit test 
+        # qr.add_data(self.short_url) #- uncomment this when running a unit test 
         qr.make(fit=True)
         img = qr.make_image(fill_color='black', back_color='white')
         img.save(buffer, 'JPEG', quality=70)

@@ -6,6 +6,9 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from flask_jwt_extended import create_access_token
 
 
+# Note: to have a pass on all of this please comment the # qr.add_data(f'{request.host_url}{self.short_url}') in the Url Model.
+
+
 
 class UserTestCase(unittest.TestCase):
     def setUp(self):
