@@ -1,4 +1,4 @@
-from flask import request,redirect, make_response, current_app
+from flask import request,redirect, make_response
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from db import db
