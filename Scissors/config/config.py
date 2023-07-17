@@ -6,9 +6,9 @@ from datetime import timedelta
 #   the path to our datatbase
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
-uri =config('DATABASE_URL')
-if uri.startswith('posgres://'):
-    uri = uri.replace('postgres://', 'postgresql://', 1)
+# uri =config('DATABASE_URL')
+# if uri.startswith('posgres://'):
+#     uri = uri.replace('postgres://', 'postgresql://', 1)
     
 class Config:
     SECRET_KEY = config('SECRET_KEY', 'secret')
@@ -50,7 +50,7 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite://' 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = uri               
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace("://", "ql://", 1)               
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = config('DEBUG', False, cast=bool)
     
