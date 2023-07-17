@@ -1,5 +1,4 @@
 import os
-import re
 from decouple import config  # we'll use config package in this decouple to read the secret key in the .env file
 from datetime import timedelta
 
