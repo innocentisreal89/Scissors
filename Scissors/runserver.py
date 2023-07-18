@@ -1,4 +1,4 @@
-from app import create_app
+from Scissors import create_app
 from config.config import config_dict 
 
 
