@@ -1,7 +1,7 @@
 import datetime
 import qrcode
 from io import BytesIO
-from db import db
+from ..utils import db
 from random import choice
 import string
 from datetime import datetime
