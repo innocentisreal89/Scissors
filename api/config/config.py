@@ -49,7 +49,7 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite://' 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'default_value_for_database_uri').replace("://", "ql://", 1)               
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace("://", "ql://", 1)               
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = config('DEBUG', False, cast=bool)
     
