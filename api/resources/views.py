@@ -2,7 +2,7 @@ from flask import request,redirect, make_response
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from ..utils import db
-from model.url import Url, is_valid_url
+from ..model.url import Url, is_valid_url
 from api.schema import *
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..extension.extension import cache, limiter

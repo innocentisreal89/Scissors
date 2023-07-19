@@ -1,12 +1,12 @@
 from flask import Flask, jsonify
 from flask_smorest import Api
 from .config.config import config_dict
-from model.url import Url
-from model.user import User
+from .model.url import Url
+from .model.user import User
 from .utils import db
 from api.extension.extension import cache, limiter, BLOCKLIST
-from resources.views import blp as UrlBlueprint
-from resources.user import blp as UserBlueprint
+from .resources.views import blp as UrlBlueprint
+from .resources.user import blp as UserBlueprint
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 

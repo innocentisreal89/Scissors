@@ -2,10 +2,10 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,create_refresh_token,get_jwt
-from model.user import User
+from ..model.user import User
 from api.schema import *
 from datetime import timedelta
-from api.extension.extension import cache, limiter, BLOCKLIST
+from ..extension.extension import cache, limiter, BLOCKLIST
 
 
 blp =  Blueprint('User', 'user', description='Operation on User')
