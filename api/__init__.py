@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_smorest import Api
-from config.config import config_dict
+from .config.config import config_dict
 from model.url import Url
 from model.user import User
 from .utils import db
