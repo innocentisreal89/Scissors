@@ -3,6 +3,7 @@ from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,create_refresh_token,get_jwt
 from ..model.user import User
+from ..model.url import Url
 from api.schema import *
 from datetime import timedelta
 from ..extension.extension import cache, limiter, BLOCKLIST
@@ -90,13 +91,14 @@ def revoke_auth():
 # Getting User details
 @blp.route('/users')
 class UserDetails(MethodView):
-    @blp.response(200,UserSchema)
+    @blp.response(200,UserUrls)
     @jwt_required()
-    @cache.cached(timeout=3600)
-    @limiter.limit("10 per minute")
+    # @cache.cached(timeout=3600)
+    @limiter.limit("10/ per minute")
     def get(self):
         current_user = get_jwt_identity()
+        # urls = Url.query.filter_by(user_id=current_user).all()
         user = User.query.filter_by(email=current_user).first()
 
-        return user
+        return user.urls
 

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify,request
 from flask_smorest import Api
 from .config.config import config_dict
 from .model.url import Url
@@ -9,7 +9,7 @@ from .resources.views import blp as UrlBlueprint
 from .resources.user import blp as UserBlueprint
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-
+from flask_cors import CORS
 
 
 def create_app(config=config_dict['dev']):
@@ -29,6 +29,19 @@ def create_app(config=config_dict['dev']):
     cache.init_app(app)
 
     limiter.init_app(app)
+
+    # Before each request, add CORS headers
+    @app.before_request
+    def before_request():
+        if request.method == 'OPTIONS':
+            headers = {
+                # 'Access-Control-Allow-Origin': 'http://localhost:3000',  # Replace with your frontend origin
+                'Access-Control-Allow-Origin': ' https://scissors-api-cifo.onrender.com/',  # Replace with your frontend origin
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                'Access-Control-Allow-Credentials': 'true'
+            }
+            return '', 204, headers
 
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):

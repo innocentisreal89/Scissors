@@ -16,10 +16,8 @@ class PlainUrlSchema(Schema):
     short_url = fields.Str()
 
 class ScissorsSchema(PlainUrlSchema):
-    org_url = fields.Str(dump_only=True)
-    short_url = fields.Str(dump_only=True)
-    # qr_code = fields.Raw(dump_only=True)
-    clicks = fields.Int(required=True,dump_only=True)
+    clicks = fields.Int(dump_only=True)
+ 
 
 class LoginSchema(Schema):
     email = fields.Str(required=True)
