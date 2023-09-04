@@ -16,6 +16,7 @@ def create_app(config=config_dict['dev']):
 
     app = Flask(__name__)
     app.config.from_object(config)
+    CORS(app)
 
     db.init_app(app)
 
